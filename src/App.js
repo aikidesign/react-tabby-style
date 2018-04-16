@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Tabs, TabBar } from "./components/Tabs";
 
 class App extends Component {
   render() {
@@ -8,6 +9,9 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">Tabby</p>
+        <Tabs>
+          <TabBar>Tab bar child</TabBar>
+        </Tabs>
       </div>
     );
   }
