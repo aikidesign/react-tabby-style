@@ -5,10 +5,7 @@ const TabsContext = React.createContext();
 
 export class Tabs extends React.Component {
   state = {
-    tabsContext: {
-      activeIndex: 2,
-      onSelectTab: this.selectTabIndex
-    }
+    activeIndex: this.props.defaultIndex || 0
   };
 
   selectTabIndex = activeIndex => {
@@ -17,8 +14,12 @@ export class Tabs extends React.Component {
 
   render() {
     const { children } = this.props;
+    const { activeIndex } = this.state;
+
     return (
-      <TabsContext.Provider value={this.state.tabsContext}>
+      <TabsContext.Provider
+        value={{ onSelectTab: this.selectTabIndex, activeIndex }}
+      >
         <div className="tabs">{children}</div>
       </TabsContext.Provider>
     );
@@ -26,15 +27,36 @@ export class Tabs extends React.Component {
 }
 
 export const TabBar = props => {
-  const { children } = props;
   return (
     <TabsContext.Consumer>
-      {tabsContext => (
-        <div className="tabBar">
-          {children}
-          <div>{JSON.stringify(tabsContext, null, 2)}</div>
-        </div>
-      )}
+      {({ activeIndex, onSelectTab }) => {
+        const children = React.Children.map(props.children, (child, index) => {
+          return React.cloneElement(child, {
+            isActive: index === activeIndex,
+            onSelect: () => onSelectTab(index)
+          });
+        });
+        return <div className="tabBar">{children}</div>;
+      }}
     </TabsContext.Consumer>
   );
+};
+
+export const Tab = props => {
+  const { onSelect, isDisabled } = props;
+  return <div onClick={isDisabled ? null : onSelect}>{props.children}</div>;
+};
+
+export const TabContent = props => {
+  return (
+    <TabsContext.Consumer>
+      {({ activeIndex }) => {
+        return <div className="tabContent">{props.children[activeIndex]}</div>;
+      }}
+    </TabsContext.Consumer>
+  );
+};
+
+export const TabPanel = props => {
+  return props.children;
 };
