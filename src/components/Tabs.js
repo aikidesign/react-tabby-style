@@ -26,28 +26,29 @@ export class Tabs extends React.Component {
   }
 }
 
+const tabbify = (tab, index, activeIndex, selectFunc) => {
+  return React.cloneElement(tab, {
+    isActive: index === activeIndex,
+    onSelect: () => selectFunc(index)
+  });
+};
+
 export const TabBar = props => {
   return (
     <TabsContext.Consumer>
       {({ activeIndex, onSelectTab }) => {
-        const children = React.Children.map(props.children, (child, index) => {
-          return React.cloneElement(child, {
-            isActive: index === activeIndex,
-            onSelect: () => onSelectTab(index)
-          });
+        let indexCount = 0;
+
+        const children = React.Children.map(props.children, child => {
+          if (child.type.name === "Tab") {
+            const tab = tabbify(child, indexCount, activeIndex, onSelectTab);
+            indexCount++;
+            return tab;
+          } else {
+            return child;
+          }
         });
-        return (
-          <div
-            style={{
-              display: "flex",
-              margin: "0 6px",
-              border: "1px solid #ccc"
-            }}
-            className="tabBar"
-          >
-            {children}
-          </div>
-        );
+        return <div className="tabBar">{children}</div>;
       }}
     </TabsContext.Consumer>
   );
@@ -56,15 +57,7 @@ export const TabBar = props => {
 export const Tab = props => {
   const { isActive, onSelect, isDisabled } = props;
   return (
-    <div
-      style={{
-        padding: 6,
-        margin: 0,
-        borderRight: "1px solid #ccc",
-        backgroundColor: isActive ? "#eee" : "#fff"
-      }}
-      onClick={isDisabled ? null : onSelect}
-    >
+    <div className="tab" onClick={isDisabled ? null : onSelect}>
       {props.children}
     </div>
   );
@@ -74,20 +67,7 @@ export const TabContent = props => {
   return (
     <TabsContext.Consumer>
       {({ activeIndex }) => {
-        return (
-          <div
-            style={{
-              padding: 6,
-              margin: "0 6px",
-              borderRight: "1px solid #ccc",
-              borderBottom: "1px solid #ccc",
-              borderLeft: "1px solid #ccc"
-            }}
-            className="tabContent"
-          >
-            {props.children[activeIndex]}
-          </div>
-        );
+        return <div className="tabContent">{props.children[activeIndex]}</div>;
       }}
     </TabsContext.Consumer>
   );

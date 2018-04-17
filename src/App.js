@@ -13,8 +13,9 @@ class App extends Component {
           <TabBar>
             <Tab>Tab 1</Tab>
             <Tab>Tab 2</Tab>
+            <div>A Section Divider</div>
             <Tab>Tab 3</Tab>
-            <Tab>Tab 4</Tab>
+            <Tab isDisabled>Tab 4</Tab>
           </TabBar>
 
           <TabContent>
