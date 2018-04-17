@@ -13,14 +13,14 @@ export class Tabs extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
     const { activeIndex } = this.state;
 
     return (
       <TabsContext.Provider
         value={{ onSelectTab: this.selectTabIndex, activeIndex }}
       >
-        <div className="tabs">{children}</div>
+        <div className={`${className} tabs`}>{children}</div>
       </TabsContext.Provider>
     );
   }
@@ -40,7 +40,11 @@ export const TabBar = props => {
         let indexCount = 0;
 
         const children = React.Children.map(props.children, child => {
-          if (child.type.name === "Tab") {
+          // debugger;
+          if (
+            child.type.name === "Tab" ||
+            child.type.displayName === "Styled(Tab)"
+          ) {
             const tab = tabbify(child, indexCount, activeIndex, onSelectTab);
             indexCount++;
             return tab;
@@ -48,26 +52,35 @@ export const TabBar = props => {
             return child;
           }
         });
-        return <div className="tabBar">{children}</div>;
+        return <div className={`${props.className} tabBar`}>{children}</div>;
       }}
     </TabsContext.Consumer>
   );
 };
 
-export const Tab = props => {
-  const { isActive, onSelect, isDisabled } = props;
+export const Tab = ({
+  className,
+  children,
+  isActive,
+  onSelect,
+  isDisabled
+}) => {
   return (
-    <div className="tab" onClick={isDisabled ? null : onSelect}>
-      {props.children}
+    <div className={`${className} tab`} onClick={isDisabled ? null : onSelect}>
+      {children}
     </div>
   );
 };
 
-export const TabContent = props => {
+export const TabContent = ({ className, children }) => {
   return (
     <TabsContext.Consumer>
       {({ activeIndex }) => {
-        return <div className="tabContent">{props.children[activeIndex]}</div>;
+        return (
+          <div className={`${className} tabContent`}>
+            {children[activeIndex]}
+          </div>
+        );
       }}
     </TabsContext.Consumer>
   );
