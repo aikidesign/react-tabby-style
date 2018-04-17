@@ -1,5 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+
+const TabsWrapper = styled.div`
+  border: 1px solid #fefefe;
+`;
+
+const TabBarWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TabWrapper = styled.div`
+  padding: 1em;
+  user-select: none;
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: ${props => (props.isDisabled ? 0.4 : 1)};
+  cursor: ${props => (props.isDisabled ? "normal" : "pointer")};
+`;
+
+const TabContentWrapper = styled.div`
+  padding: 1em;
+`;
 
 const TabsContext = React.createContext();
 
@@ -20,7 +42,7 @@ export class Tabs extends React.Component {
       <TabsContext.Provider
         value={{ onSelectTab: this.selectTabIndex, activeIndex }}
       >
-        <div className={`${className} tabs`}>{children}</div>
+        <TabsWrapper className={`${className} tabs`}>{children}</TabsWrapper>
       </TabsContext.Provider>
     );
   }
@@ -52,7 +74,11 @@ export const TabBar = props => {
             return child;
           }
         });
-        return <div className={`${props.className} tabBar`}>{children}</div>;
+        return (
+          <TabBarWrapper className={`${props.className} tabBar`}>
+            {children}
+          </TabBarWrapper>
+        );
       }}
     </TabsContext.Consumer>
   );
@@ -66,9 +92,13 @@ export const Tab = ({
   isDisabled
 }) => {
   return (
-    <div className={`${className} tab`} onClick={isDisabled ? null : onSelect}>
+    <TabWrapper
+      isDisabled={isDisabled}
+      className={`${className} tab`}
+      onClick={isDisabled ? null : onSelect}
+    >
       {children}
-    </div>
+    </TabWrapper>
   );
 };
 
@@ -77,9 +107,9 @@ export const TabContent = ({ className, children }) => {
     <TabsContext.Consumer>
       {({ activeIndex }) => {
         return (
-          <div className={`${className} tabContent`}>
+          <TabContentWrapper className={`${className} tabContent`}>
             {children[activeIndex]}
-          </div>
+          </TabContentWrapper>
         );
       }}
     </TabsContext.Consumer>
