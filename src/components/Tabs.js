@@ -36,22 +36,58 @@ export const TabBar = props => {
             onSelect: () => onSelectTab(index)
           });
         });
-        return <div className="tabBar">{children}</div>;
+        return (
+          <div
+            style={{
+              display: "flex",
+              margin: "0 6px",
+              border: "1px solid #ccc"
+            }}
+            className="tabBar"
+          >
+            {children}
+          </div>
+        );
       }}
     </TabsContext.Consumer>
   );
 };
 
 export const Tab = props => {
-  const { onSelect, isDisabled } = props;
-  return <div onClick={isDisabled ? null : onSelect}>{props.children}</div>;
+  const { isActive, onSelect, isDisabled } = props;
+  return (
+    <div
+      style={{
+        padding: 6,
+        margin: 0,
+        borderRight: "1px solid #ccc",
+        backgroundColor: isActive ? "#eee" : "#fff"
+      }}
+      onClick={isDisabled ? null : onSelect}
+    >
+      {props.children}
+    </div>
+  );
 };
 
 export const TabContent = props => {
   return (
     <TabsContext.Consumer>
       {({ activeIndex }) => {
-        return <div className="tabContent">{props.children[activeIndex]}</div>;
+        return (
+          <div
+            style={{
+              padding: 6,
+              margin: "0 6px",
+              borderRight: "1px solid #ccc",
+              borderBottom: "1px solid #ccc",
+              borderLeft: "1px solid #ccc"
+            }}
+            className="tabContent"
+          >
+            {props.children[activeIndex]}
+          </div>
+        );
       }}
     </TabsContext.Consumer>
   );
