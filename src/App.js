@@ -1,5 +1,35 @@
 import React, { Component } from "react";
+
 import { Tabs, TabBar, Tab, TabContent, TabPanel } from "./components/Tabs";
+import Basic from "./examples/Basic";
+import BasicBottom from "./examples/BasicBottom";
+import SideTabs from "./examples/SideTabs";
+import Styled from "./examples/Styled";
+
+const styles = {
+  tabs: {
+    fontFamily: "Arial, Helvetica, sans-serif",
+    width: "90%",
+    border: "1em solid #ddd",
+    minHeight: "80vh"
+  },
+  tabBar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  tab: {
+    backgroundColor: "#ddd",
+    fontSize: "2em",
+    textAlign: "center",
+    width: "100%"
+  },
+  tabContent: {
+    padding: "20px"
+  },
+  tabPanel: {
+    backgroundColor: "#ccc"
+  }
+};
 
 class App extends Component {
   render() {
@@ -7,22 +37,29 @@ class App extends Component {
       <React.Fragment>
         <div className="App">
           <div className="App-header">
-            <h1 className="App-title">basic</h1>
+            <h1 className="App-title">Tabby using React Context</h1>
           </div>
-          <Tabs defaultIndex={1}>
-            <TabBar>
-              <Tab>Tab 1</Tab>
-              <Tab>Tab 2</Tab>
-              <div>A Section Divider</div>
-              <Tab>Tab 3</Tab>
-              <Tab isDisabled>Tab 4</Tab>
+          <Tabs defaultIndex={0} style={styles.tabs}>
+            <TabBar style={styles.tabBar}>
+              <Tab style={styles.tab}>Basic</Tab>
+              <Tab style={styles.tab}>Basic with Bottom Tabs</Tab>
+              <Tab style={styles.tab}>Side Tabs</Tab>
+              <Tab style={styles.tab}>Styled Components</Tab>
             </TabBar>
 
-            <TabContent>
-              <TabPanel>I am the content for Tab 1</TabPanel>
-              <TabPanel>I am the content for Tab 2</TabPanel>
-              <TabPanel>I am the content for Tab 3</TabPanel>
-              <TabPanel>I am the content for Tab 4</TabPanel>
+            <TabContent style={styles.tabContent}>
+              <TabPanel style={styles.tabPanel}>
+                <Basic />
+              </TabPanel>
+              <TabPanel style={styles.tabPanel}>
+                <BasicBottom />
+              </TabPanel>
+              <TabPanel style={styles.tabPanel}>
+                <SideTabs />
+              </TabPanel>
+              <TabPanel style={styles.tabPanel}>
+                <Styled />
+              </TabPanel>
             </TabContent>
           </Tabs>
         </div>

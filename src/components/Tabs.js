@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const TabsWrapper = styled.div`
@@ -17,6 +16,7 @@ const TabWrapper = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   opacity: ${props => (props.isDisabled ? 0.4 : 1)};
   cursor: ${props => (props.isDisabled ? "normal" : "pointer")};
+  font-weight: ${props => (props.isActive ? "bold" : "normal")};
 `;
 
 const TabContentWrapper = styled.div`
@@ -35,14 +35,16 @@ export class Tabs extends React.Component {
   };
 
   render() {
-    const { children, className } = this.props;
+    const { children, className, style } = this.props;
     const { activeIndex } = this.state;
 
     return (
       <TabsContext.Provider
         value={{ onSelectTab: this.selectTabIndex, activeIndex }}
       >
-        <TabsWrapper className={`${className} tabs`}>{children}</TabsWrapper>
+        <TabsWrapper style={style} className={`${className} tabs`}>
+          {children}
+        </TabsWrapper>
       </TabsContext.Provider>
     );
   }
@@ -62,7 +64,6 @@ export const TabBar = props => {
         let indexCount = 0;
 
         const children = React.Children.map(props.children, child => {
-          // debugger;
           if (
             child.type.name === "Tab" ||
             child.type.displayName === "Styled(Tab)"
@@ -75,7 +76,10 @@ export const TabBar = props => {
           }
         });
         return (
-          <TabBarWrapper className={`${props.className} tabBar`}>
+          <TabBarWrapper
+            style={props.style}
+            className={`${props.className} tabBar`}
+          >
             {children}
           </TabBarWrapper>
         );
@@ -89,11 +93,14 @@ export const Tab = ({
   children,
   isActive,
   onSelect,
-  isDisabled
+  isDisabled,
+  style
 }) => {
   return (
     <TabWrapper
+      style={style}
       isDisabled={isDisabled}
+      isActive={isActive}
       className={`${className} tab`}
       onClick={isDisabled ? null : onSelect}
     >
@@ -102,12 +109,15 @@ export const Tab = ({
   );
 };
 
-export const TabContent = ({ className, children }) => {
+export const TabContent = ({ className, children, style }) => {
   return (
     <TabsContext.Consumer>
       {({ activeIndex }) => {
         return (
-          <TabContentWrapper className={`${className} tabContent`}>
+          <TabContentWrapper
+            style={style}
+            className={`${className} tabContent`}
+          >
             {children[activeIndex]}
           </TabContentWrapper>
         );
