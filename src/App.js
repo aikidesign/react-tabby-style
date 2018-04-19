@@ -37,7 +37,7 @@ class App extends Component {
           <div className="App-header">
             <h1 className="App-title">Tabby using React Context</h1>
           </div>
-          <Tabs defaultIndex={2} style={styles.tabs}>
+          <Tabs defaultIndex={0} style={styles.tabs}>
             <TabBar style={styles.tabBar}>
               <Tab style={styles.tab}>Basic</Tab>
               <Tab style={styles.tab}>Top/Bottom</Tab>
