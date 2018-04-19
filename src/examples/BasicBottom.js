@@ -1,37 +1,62 @@
 import React from "react";
 import { Tabs, TabBar, Tab, TabContent, TabPanel } from "../components/Tabs";
-import content from "../data/content";
+
+const styles = {
+  tabs: {
+    display: "grid",
+    gridTemplateRows: "60px 500px 60px",
+    gridGap: "0px",
+    color: "#fefefe"
+  },
+  top: {
+    gridRow: "1/2",
+    backgroundColor: "#333"
+  },
+  content: {
+    gridRow: "2/3",
+    backgroundColor: "#fff",
+    lineHeight: "1.7em",
+    color: "#333",
+    border: "1px solid #333",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  bottom: {
+    gridRow: "3/4",
+    backgroundColor: "#333"
+  },
+  panel: {
+    fontSize: "10em",
+    textAlign: "center",
+    color: "grey"
+  }
+};
 
 const BasicBottom = () => {
   return (
     <React.Fragment>
       <div>
-        <h1>Basic with Tabs on Bottom</h1>
+        <h1>Tabs Mirrored Top/Bottom</h1>
       </div>
-      <Tabs defaultIndex={1}>
-        <TabContent>
-          <TabPanel>
-            <h3>Basic Content 1</h3>
-            {content.one}
-          </TabPanel>
-          <TabPanel>
-            <h3>Basic Content 2</h3>
-            {content.two}
-          </TabPanel>
-          <TabPanel>
-            <h3>Basic Content 3</h3>
-            {content.three}
-          </TabPanel>
-          <TabPanel>
-            <h3>Basic Content 4</h3>
-            {content.four}
-          </TabPanel>
+      <Tabs defaultIndex={0} style={styles.tabs}>
+        <TabBar style={styles.top}>
+          <Tab>One</Tab>
+          <Tab>Two</Tab>
+          <Tab isDisabled>Three (disabled)</Tab>
+          <Tab>Four</Tab>
+        </TabBar>
+        <TabContent style={styles.content}>
+          <TabPanel style={styles.panel}>1</TabPanel>
+          <TabPanel style={styles.panel}>2</TabPanel>
+          <TabPanel style={styles.panel}>3</TabPanel>
+          <TabPanel style={styles.panel}>4</TabPanel>
         </TabContent>
-        <TabBar>
-          <Tab>Basic Tab 1</Tab>
-          <Tab>Basic Tab 2</Tab>
-          <Tab isDisabled>Basic Tab 3</Tab>
-          <Tab>Basic Tab 4</Tab>
+        <TabBar style={styles.bottom}>
+          <Tab>Bottom One</Tab>
+          <Tab>Bottom Two</Tab>
+          <Tab isDisabled>Bottom Three (disabled)</Tab>
+          <Tab>Bottom Four</Tab>
         </TabBar>
       </Tabs>
     </React.Fragment>

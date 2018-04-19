@@ -15,19 +15,17 @@ const styles = {
   },
   tabBar: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "#ddd"
   },
   tab: {
     backgroundColor: "#ddd",
-    fontSize: "2em",
+    fontSize: "1.35em",
     textAlign: "center",
     width: "100%"
   },
   tabContent: {
     padding: "20px"
-  },
-  tabPanel: {
-    backgroundColor: "#ccc"
   }
 };
 
@@ -39,25 +37,25 @@ class App extends Component {
           <div className="App-header">
             <h1 className="App-title">Tabby using React Context</h1>
           </div>
-          <Tabs defaultIndex={0} style={styles.tabs}>
+          <Tabs defaultIndex={2} style={styles.tabs}>
             <TabBar style={styles.tabBar}>
               <Tab style={styles.tab}>Basic</Tab>
-              <Tab style={styles.tab}>Basic with Bottom Tabs</Tab>
+              <Tab style={styles.tab}>Top/Bottom</Tab>
               <Tab style={styles.tab}>Side Tabs</Tab>
               <Tab style={styles.tab}>Styled Components</Tab>
             </TabBar>
 
             <TabContent style={styles.tabContent}>
-              <TabPanel style={styles.tabPanel}>
+              <TabPanel>
                 <Basic />
               </TabPanel>
-              <TabPanel style={styles.tabPanel}>
+              <TabPanel>
                 <BasicBottom />
               </TabPanel>
-              <TabPanel style={styles.tabPanel}>
+              <TabPanel>
                 <SideTabs />
               </TabPanel>
-              <TabPanel style={styles.tabPanel}>
+              <TabPanel>
                 <Styled />
               </TabPanel>
             </TabContent>

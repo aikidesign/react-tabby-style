@@ -7,6 +7,7 @@ const TabsWrapper = styled.div`
 
 const TabBarWrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -127,5 +128,6 @@ export const TabContent = ({ className, children, style }) => {
 };
 
 export const TabPanel = props => {
-  return props.children;
+  // return props.children;
+  return <div style={props.style}>{props.children}</div>;
 };

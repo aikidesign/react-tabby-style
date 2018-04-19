@@ -19,7 +19,7 @@ const StyleTab = styled(Tab)`
 
 const StyleTabs = styled(Tabs)`
   background-color: #333;
-  min-height: 700px;
+  min-height: 500px;
   width: 400px;
 `;
 

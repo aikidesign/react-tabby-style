@@ -3,10 +3,18 @@ import { Tabs, TabBar, Tab, TabContent, TabPanel } from "../components/Tabs";
 import content from "../data/content";
 
 const styles = {
-  tabs: { display: "flex" },
-  tabBar: { flexDirection: "column", height: "100%" },
+  tabs: { display: "flex", fontSize: "16px" },
+  tabBar: {
+    flexDirection: "column",
+    height: "100%",
+    borderLeft: "1px solid #ccc",
+    borderRight: "1px solid #ccc",
+    borderTop: "1px solid #ccc"
+  },
   tab: {
-    width: "100px"
+    width: "100px",
+    textAlign: "center",
+    borderBottom: "1px solid #ccc"
   },
   divider: {
     height: "2px",
@@ -14,12 +22,11 @@ const styles = {
     backgroundColor: "#333"
   },
   section: {
+    color: "#666",
     fontSize: "12px",
-    color: "#555",
-    width: "100px",
-    borderTop: "1px solid #555",
-    borderBottom: "1px solid #555",
-    padding: "0 3px",
+    width: "100%",
+    padding: "6px 0",
+    borderBottom: "1px solid #ccc",
     textAlign: "center"
   }
 };
@@ -34,7 +41,7 @@ const SideTabs = () => {
         <TabBar style={styles.tabBar}>
           <Tab style={styles.tab}>Basic Tab 1</Tab>
           <Tab style={styles.tab}>Basic Tab 2</Tab>
-          <div style={styles.section}>Section Divider</div>
+          <div style={styles.section}>SECTION</div>
           <Tab style={styles.tab} isDisabled>
             Basic Tab 3
           </Tab>
